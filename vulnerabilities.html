@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulnerabilities — CodeShield</title>
+  <meta name="description" content="Explore common web application vulnerabilities including SQL Injection, XSS, weak passwords, hardcoded credentials, and insecure input validation." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🛡️</span>
+      <span>CodeShield</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="vulnerabilities.html" class="active">Vulnerabilities</a></li>
+      <li><a href="review.html">Code Review</a></li>
+      <li><a href="best-practices.html">Best Practices</a></li>
+      <li><a href="report.html">Audit Report</a></li>
+      <li><a href="challenge.html">Challenge</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-wrapper">
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <span class="section-tag">Security Analysis</span>
+      <h1 class="page-hero-title">Common <span>Vulnerabilities</span></h1>
+      <p class="page-hero-sub">
+        Five of the most commonly found security vulnerabilities in web applications,
+        with explanations, severity ratings, and prevention tips.
+      </p>
+    </div>
+
+    <!-- VULNERABILITIES -->
+    <section class="section">
+      <div class="vuln-grid">
+
+        <!-- SQL INJECTION -->
+        <div class="vuln-card reveal reveal-delay-1" id="vuln-sqli">
+          <div class="vuln-card-header">
+            <div>
+              <div class="vuln-title">SQL Injection</div>
+              <span class="badge badge-critical">● Critical</span>
+            </div>
+            <div class="vuln-icon">🗄️</div>
+          </div>
+          <p class="vuln-desc">
+            SQL Injection occurs when untrusted user input is inserted directly into a SQL query
+            without sanitization. An attacker can manipulate the query to read, modify, or delete
+            database data — or even take over the server.
+          </p>
+          <div style="margin-bottom:1rem;">
+            <div style="background:#0d0d17;border:1px solid var(--border-color);border-left:3px solid var(--accent-red);border-radius:var(--border-radius);padding:0.9rem 1rem;font-family:var(--font-code);font-size:0.78rem;color:#f07178;">
+              <span class="cm">// ⚠️ Vulnerable</span><br/>
+              <span class="str">"SELECT * FROM users WHERE name='"</span> <span class="op">+</span> userInput <span class="op">+</span> <span class="str">"'"</span>
+            </div>
+          </div>
+          <div class="vuln-tip">
+            <span class="tip-label">FIX:</span>
+            <span>Use parameterized queries or prepared statements. Never concatenate user input directly into SQL strings.</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.72rem;color:var(--text-muted);font-family:var(--font-code);">CVE-OWASP-A03</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">·</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">OWASP Top 10 #3</span>
+          </div>
+        </div>
+
+        <!-- XSS -->
+        <div class="vuln-card reveal reveal-delay-2" id="vuln-xss">
+          <div class="vuln-card-header">
+            <div>
+              <div class="vuln-title">Cross-Site Scripting (XSS)</div>
+              <span class="badge badge-high">● High</span>
+            </div>
+            <div class="vuln-icon">⚠️</div>
+          </div>
+          <p class="vuln-desc">
+            XSS allows attackers to inject malicious scripts into web pages viewed by other users.
+            This can be used to steal cookies, session tokens, redirect users, or perform actions
+            on behalf of the victim without their knowledge.
+          </p>
+          <div style="margin-bottom:1rem;">
+            <div style="background:#0d0d17;border:1px solid var(--border-color);border-left:3px solid var(--accent-orange);border-radius:var(--border-radius);padding:0.9rem 1rem;font-family:var(--font-code);font-size:0.78rem;color:#f07178;">
+              <span class="cm">// ⚠️ Vulnerable</span><br/>
+              element.<span class="fn">innerHTML</span> <span class="op">=</span> userInput;<span class="cm"> // Never!</span>
+            </div>
+          </div>
+          <div class="vuln-tip">
+            <span class="tip-label">FIX:</span>
+            <span>Use <code>textContent</code> instead of <code>innerHTML</code>. Encode output and implement a strict Content Security Policy (CSP).</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.72rem;color:var(--text-muted);font-family:var(--font-code);">CVE-OWASP-A03</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">·</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">OWASP Top 10 #3</span>
+          </div>
+        </div>
+
+        <!-- WEAK PASSWORDS -->
+        <div class="vuln-card reveal reveal-delay-3" id="vuln-weakpass">
+          <div class="vuln-card-header">
+            <div>
+              <div class="vuln-title">Weak Passwords</div>
+              <span class="badge badge-high">● High</span>
+            </div>
+            <div class="vuln-icon">🔓</div>
+          </div>
+          <p class="vuln-desc">
+            Applications that allow weak, short, or common passwords make it trivial for attackers
+            to gain unauthorized access via brute force or credential stuffing attacks. Storing
+            passwords in plain text compounds the risk dramatically.
+          </p>
+          <div style="margin-bottom:1rem;">
+            <div style="background:#0d0d17;border:1px solid var(--border-color);border-left:3px solid var(--accent-orange);border-radius:var(--border-radius);padding:0.9rem 1rem;font-family:var(--font-code);font-size:0.78rem;color:#f07178;">
+              <span class="cm">// ⚠️ Vulnerable</span><br/>
+              <span class="kw">if</span> (password.length <span class="op">>=</span> <span class="num">4</span>) allowed();<span class="cm"> // Too weak!</span>
+            </div>
+          </div>
+          <div class="vuln-tip">
+            <span class="tip-label">FIX:</span>
+            <span>Enforce minimum 12+ character passwords with complexity rules. Hash passwords with bcrypt or Argon2. Enable MFA.</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.72rem;color:var(--text-muted);font-family:var(--font-code);">CVE-OWASP-A07</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">·</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">OWASP Top 10 #7</span>
+          </div>
+        </div>
+
+        <!-- HARDCODED CREDENTIALS -->
+        <div class="vuln-card reveal reveal-delay-1" id="vuln-hardcode">
+          <div class="vuln-card-header">
+            <div>
+              <div class="vuln-title">Hardcoded Credentials</div>
+              <span class="badge badge-critical">● Critical</span>
+            </div>
+            <div class="vuln-icon">🔑</div>
+          </div>
+          <p class="vuln-desc">
+            Embedding passwords, API keys, or secrets directly in source code is one of the most
+            dangerous mistakes a developer can make. If the code is ever exposed (e.g., through
+            a public GitHub repo), attackers immediately gain access to critical systems.
+          </p>
+          <div style="margin-bottom:1rem;">
+            <div style="background:#0d0d17;border:1px solid var(--border-color);border-left:3px solid var(--accent-red);border-radius:var(--border-radius);padding:0.9rem 1rem;font-family:var(--font-code);font-size:0.78rem;color:#f07178;">
+              <span class="cm">// ⚠️ Vulnerable — Never do this!</span><br/>
+              <span class="kw">const</span> DB_PASS <span class="op">=</span> <span class="str">"admin123"</span>;<br/>
+              <span class="kw">const</span> API_KEY <span class="op">=</span> <span class="str">"sk-abc123secret"</span>;
+            </div>
+          </div>
+          <div class="vuln-tip">
+            <span class="tip-label">FIX:</span>
+            <span>Store credentials in environment variables or a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault). Never commit secrets to version control.</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.72rem;color:var(--text-muted);font-family:var(--font-code);">CVE-OWASP-A02</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">·</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">OWASP Top 10 #2</span>
+          </div>
+        </div>
+
+        <!-- INSECURE INPUT VALIDATION -->
+        <div class="vuln-card reveal reveal-delay-2" id="vuln-input">
+          <div class="vuln-card-header">
+            <div>
+              <div class="vuln-title">Insecure Input Validation</div>
+              <span class="badge badge-medium">● Medium</span>
+            </div>
+            <div class="vuln-icon">📝</div>
+          </div>
+          <p class="vuln-desc">
+            Failing to validate and sanitize user-provided data allows attackers to submit
+            unexpected input that can break application logic, trigger injection attacks, or
+            cause crashes. Relying on client-side validation alone is never sufficient.
+          </p>
+          <div style="margin-bottom:1rem;">
+            <div style="background:#0d0d17;border:1px solid var(--border-color);border-left:3px solid var(--accent-yellow);border-radius:var(--border-radius);padding:0.9rem 1rem;font-family:var(--font-code);font-size:0.78rem;color:#ffcb6b;">
+              <span class="cm">// ⚠️ No server-side validation</span><br/>
+              <span class="kw">const</span> age <span class="op">=</span> req.body.age; <span class="cm">// could be "abc" or -1</span><br/>
+              db.<span class="fn">save</span>({ age }); <span class="cm">// stored without checks</span>
+            </div>
+          </div>
+          <div class="vuln-tip">
+            <span class="tip-label">FIX:</span>
+            <span>Always validate and sanitize input on the server side. Use allowlists, type checking, and schema validation libraries like Joi or Zod.</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.72rem;color:var(--text-muted);font-family:var(--font-code);">CVE-OWASP-A03</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">·</span>
+            <span style="font-size:0.72rem;color:var(--text-muted);">OWASP Top 10 #3</span>
+          </div>
+        </div>
+
+        <!-- CTA CARD -->
+        <div class="vuln-card reveal reveal-delay-3" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:280px;background:var(--neon-green-faint);border-color:rgba(0,255,65,0.2);">
+          <span style="font-size:2.5rem;margin-bottom:1rem;">🚀</span>
+          <h3 style="font-family:var(--font-heading);font-size:0.9rem;color:var(--neon-green);letter-spacing:1px;margin-bottom:0.7rem;">READY TO LEARN MORE?</h3>
+          <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:1.5rem;line-height:1.6;">
+            See vulnerable vs. secure code examples with step-by-step remediation.
+          </p>
+          <div style="display:flex;flex-direction:column;gap:0.7rem;width:100%;">
+            <a href="review.html" class="btn btn-primary btn-sm" id="btn-code-review">View Code Review →</a>
+            <a href="challenge.html" class="btn btn-outline btn-sm" id="btn-quiz">Take the Quiz</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">🛡️ CodeShield</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="vulnerabilities.html">Vulnerabilities</a>
+      <a href="review.html">Code Review</a>
+      <a href="best-practices.html">Best Practices</a>
+      <a href="report.html">Report</a>
+      <a href="challenge.html">Challenge</a>
+    </div>
+    <p class="footer-text">CodeShield &mdash; Secure Coding Review Project &bull; 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

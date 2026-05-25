@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeShield — Secure Coding Review Project</title>
+  <meta name="description" content="CodeShield is a beginner-friendly secure coding review project that explains common vulnerabilities, secure coding practices, and remediation techniques." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🛡️</span>
+      <span>CodeShield</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="vulnerabilities.html">Vulnerabilities</a></li>
+      <li><a href="review.html">Code Review</a></li>
+      <li><a href="best-practices.html">Best Practices</a></li>
+      <li><a href="report.html">Audit Report</a></li>
+      <li><a href="challenge.html">Challenge</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-wrapper">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge animate-up">
+          <span class="dot"></span>
+          <span>Security Audit</span>
+        </div>
+
+        <h1 class="hero-title animate-up" style="animation-delay:0.1s">
+          Code<span class="highlight">Shield</span>
+        </h1>
+
+        <p class="hero-subtitle animate-up" style="animation-delay:0.2s">
+          Secure Coding Review 
+        </p>
+
+        <p class="hero-description animate-up" style="animation-delay:0.3s">
+          A beginner-friendly cybersecurity project exploring common coding vulnerabilities,
+          manual inspection methods, and secure coding best practices to help developers
+          write safer, more resilient code.
+        </p>
+
+        <div class="hero-buttons animate-up" style="animation-delay:0.4s">
+          <a href="vulnerabilities.html" class="btn btn-primary" id="btn-explore">
+            🔍 Explore Vulnerabilities
+          </a>
+          <a href="report.html" class="btn btn-outline" id="btn-report">
+            📋 View Audit Report
+          </a>
+        </div>
+
+        <div class="hero-stats animate-up" style="animation-delay:0.5s">
+          <div class="stat-item">
+            <span class="stat-number" data-count="5">0</span>
+            <span class="stat-label">Vulnerabilities</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="3">0</span>
+            <span class="stat-label">Code Examples</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="10">0</span>
+            <span class="stat-label">Best Practices</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="8">0</span>
+            <span class="stat-label">Quiz Questions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW FEATURES -->
+    <section class="section">
+      <div class="section-header reveal">
+        <span class="section-tag">What We Cover</span>
+        <h2 class="section-title">Project <span>Overview</span></h2>
+        <p class="section-subtitle">This project satisfies the core internship requirements for a secure coding review audit.</p>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-icon">🔎</span>
+          <h3 class="feature-title">Vulnerability Identification</h3>
+          <p class="feature-desc">Identify common security vulnerabilities in web application code including SQL Injection, XSS, and more.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <span class="feature-icon">🧪</span>
+          <h3 class="feature-title">Manual Code Inspection</h3>
+          <p class="feature-desc">Using manual inspection methods to review source code and detect insecure coding patterns.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <span class="feature-icon">🛠️</span>
+          <h3 class="feature-title">Remediation Steps</h3>
+          <p class="feature-desc">Clear, actionable remediation steps with before/after secure code examples for every vulnerability.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-4">
+          <span class="feature-icon">📋</span>
+          <h3 class="feature-title">Audit Report</h3>
+          <p class="feature-desc">A simple audit dashboard with severity levels, findings, and a remediation checklist.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-icon">✅</span>
+          <h3 class="feature-title">Best Practices</h3>
+          <p class="feature-desc">Recommendations for secure authentication, input validation, password policies, and more.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <span class="feature-icon">🎯</span>
+          <h3 class="feature-title">Interactive Quiz</h3>
+          <p class="feature-desc">Test your knowledge with a beginner-friendly quiz on identifying common coding vulnerabilities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK INTRO -->
+    <section class="section" style="padding-top:0">
+      <div class="card reveal" style="max-width:700px;margin:0 auto;text-align:center;padding:2.5rem;">
+        <span style="font-size:2.5rem;display:block;margin-bottom:1rem;">🔐</span>
+        <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--neon-green);letter-spacing:1px;margin-bottom:0.8rem;">WHY SECURE CODING MATTERS</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;">
+          Insecure code is one of the leading causes of data breaches, application failures, and cyber attacks.
+          By identifying vulnerabilities early in the development cycle — through techniques like manual code
+          review and static analysis — developers can significantly reduce security risks before software reaches production.
+        </p>
+        <div style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="vulnerabilities.html" class="btn btn-outline btn-sm">View Vulnerabilities →</a>
+          <a href="challenge.html" class="btn btn-outline btn-sm">Take the Quiz →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">🛡️ CodeShield</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="vulnerabilities.html">Vulnerabilities</a>
+      <a href="review.html">Code Review</a>
+      <a href="best-practices.html">Best Practices</a>
+      <a href="report.html">Report</a>
+      <a href="challenge.html">Challenge</a>
+    </div>
+    <p class="footer-text">
+      CodeShield &mdash; Secure Coding Review Project &bull; Built for internship purposes &bull; 2025
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

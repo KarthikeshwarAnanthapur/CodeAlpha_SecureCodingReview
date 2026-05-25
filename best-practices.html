@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Practices — CodeShield</title>
+  <meta name="description" content="Secure coding best practices including strong passwords, MFA, input sanitization, secure authentication, and secure development habits." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🛡️</span>
+      <span>CodeShield</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="vulnerabilities.html">Vulnerabilities</a></li>
+      <li><a href="review.html">Code Review</a></li>
+      <li><a href="best-practices.html" class="active">Best Practices</a></li>
+      <li><a href="report.html">Audit Report</a></li>
+      <li><a href="challenge.html">Challenge</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <span class="section-tag">Recommendations</span>
+      <h1 class="page-hero-title">Secure Coding <span>Best Practices</span></h1>
+      <p class="page-hero-sub">
+        Key practices every developer should follow to build more secure applications
+        and reduce the risk of common vulnerabilities.
+      </p>
+    </div>
+
+    <section class="section">
+      <div class="practices-grid">
+
+        <!-- STRONG PASSWORDS -->
+        <div class="practice-card reveal reveal-delay-1" id="practice-passwords">
+          <span class="practice-icon">🔐</span>
+          <h3 class="practice-title">Strong Password Policies</h3>
+          <p class="practice-desc">
+            Weak passwords are the easiest entry point for attackers. Enforce strict password
+            policies and always hash passwords with a strong algorithm — never store them in plain text.
+          </p>
+          <ul class="practice-points">
+            <li>Minimum 12 characters with mixed case, numbers, and symbols</li>
+            <li>Hash passwords using bcrypt, Argon2, or PBKDF2</li>
+            <li>Never store passwords in plain text or MD5/SHA1</li>
+            <li>Enforce password rotation and prevent password reuse</li>
+            <li>Check against known breached password lists (e.g., HaveIBeenPwned)</li>
+          </ul>
+        </div>
+
+        <!-- MFA -->
+        <div class="practice-card reveal reveal-delay-2" id="practice-mfa">
+          <span class="practice-icon">📱</span>
+          <h3 class="practice-title">Multi-Factor Authentication (MFA)</h3>
+          <p class="practice-desc">
+            MFA adds an additional verification layer beyond passwords, dramatically reducing
+            the risk of account compromise even when credentials are stolen.
+          </p>
+          <ul class="practice-points">
+            <li>Require MFA for all admin and privileged accounts</li>
+            <li>Support TOTP apps (Google Authenticator, Authy)</li>
+            <li>Avoid SMS-only MFA due to SIM-swapping risks</li>
+            <li>Offer hardware key support (FIDO2/WebAuthn) for high-security systems</li>
+            <li>Invalidate sessions upon suspicious activity detection</li>
+          </ul>
+        </div>
+
+        <!-- INPUT SANITIZATION -->
+        <div class="practice-card reveal reveal-delay-3" id="practice-sanitize">
+          <span class="practice-icon">🧹</span>
+          <h3 class="practice-title">Input Sanitization</h3>
+          <p class="practice-desc">
+            Every piece of user input is potentially malicious. Always sanitize and validate
+            data on the server side regardless of what client-side validation is in place.
+          </p>
+          <ul class="practice-points">
+            <li>Validate input type, format, length, and range server-side</li>
+            <li>Use allowlists rather than denylists for accepted values</li>
+            <li>Strip or encode special characters before processing</li>
+            <li>Use parameterized queries for all database operations</li>
+            <li>Never trust data from cookies, headers, or query strings without validation</li>
+          </ul>
+        </div>
+
+        <!-- SECURE AUTHENTICATION -->
+        <div class="practice-card reveal reveal-delay-1" id="practice-auth">
+          <span class="practice-icon">🔑</span>
+          <h3 class="practice-title">Secure Authentication</h3>
+          <p class="practice-desc">
+            Authentication is the gateway to your application. Poorly implemented auth
+            systems are a top target for attackers and must be designed with security in mind from the start.
+          </p>
+          <ul class="practice-points">
+            <li>Use short-lived JWTs and refresh token rotation</li>
+            <li>Implement account lockout after failed login attempts</li>
+            <li>Never expose sensitive data in tokens or URLs</li>
+            <li>Use HTTPS exclusively for all authentication flows</li>
+            <li>Invalidate sessions server-side upon logout</li>
+          </ul>
+        </div>
+
+        <!-- SECRETS MANAGEMENT -->
+        <div class="practice-card reveal reveal-delay-2" id="practice-secrets">
+          <span class="practice-icon">🗝️</span>
+          <h3 class="practice-title">Secrets Management</h3>
+          <p class="practice-desc">
+            API keys, database passwords, and other secrets must never appear in source code.
+            A single leaked credential can compromise an entire system.
+          </p>
+          <ul class="practice-points">
+            <li>Store all secrets in environment variables or a secrets manager</li>
+            <li>Always add <code style="font-family:var(--font-code);font-size:0.78rem;">.env</code> files to <code style="font-family:var(--font-code);font-size:0.78rem;">.gitignore</code></li>
+            <li>Rotate secrets regularly and immediately after any suspected leak</li>
+            <li>Use tools like git-secrets or truffleHog to scan for leaks</li>
+            <li>Limit secret access using the principle of least privilege</li>
+          </ul>
+        </div>
+
+        <!-- DEPENDENCY SECURITY -->
+        <div class="practice-card reveal reveal-delay-3" id="practice-deps">
+          <span class="practice-icon">📦</span>
+          <h3 class="practice-title">Dependency Security</h3>
+          <p class="practice-desc">
+            Modern applications rely on dozens of third-party libraries. Each one is a potential
+            attack surface — outdated or vulnerable packages are a common entry point for attackers.
+          </p>
+          <ul class="practice-points">
+            <li>Regularly audit dependencies with <code style="font-family:var(--font-code);font-size:0.78rem;">npm audit</code> or <code style="font-family:var(--font-code);font-size:0.78rem;">snyk</code></li>
+            <li>Pin dependency versions and review changes before updating</li>
+            <li>Remove unused packages to reduce attack surface</li>
+            <li>Subscribe to security advisories for critical dependencies</li>
+            <li>Use Software Composition Analysis (SCA) tools in your CI/CD pipeline</li>
+          </ul>
+        </div>
+
+        <!-- HTTPS & TRANSPORT SECURITY -->
+        <div class="practice-card reveal reveal-delay-1" id="practice-https">
+          <span class="practice-icon">🔒</span>
+          <h3 class="practice-title">HTTPS & Transport Security</h3>
+          <p class="practice-desc">
+            Data transmitted over HTTP is visible to anyone on the network. Always use HTTPS
+            to encrypt data in transit and configure it properly for maximum protection.
+          </p>
+          <ul class="practice-points">
+            <li>Use TLS 1.2 or 1.3 only — disable older versions</li>
+            <li>Enable HSTS (HTTP Strict Transport Security) headers</li>
+            <li>Set <code style="font-family:var(--font-code);font-size:0.78rem;">Secure</code> and <code style="font-family:var(--font-code);font-size:0.78rem;">HttpOnly</code> flags on all cookies</li>
+            <li>Use strong cipher suites and regularly rotate TLS certificates</li>
+            <li>Redirect all HTTP traffic to HTTPS automatically</li>
+          </ul>
+        </div>
+
+        <!-- ERROR HANDLING -->
+        <div class="practice-card reveal reveal-delay-2" id="practice-errors">
+          <span class="practice-icon">⚠️</span>
+          <h3 class="practice-title">Secure Error Handling</h3>
+          <p class="practice-desc">
+            Verbose error messages can reveal stack traces, file paths, database schemas, and other
+            sensitive information that help attackers map out your system.
+          </p>
+          <ul class="practice-points">
+            <li>Display generic error messages to users — never expose stack traces</li>
+            <li>Log detailed errors server-side with a structured logging system</li>
+            <li>Never log sensitive data like passwords, tokens, or PII</li>
+            <li>Use centralized error handling middleware in your framework</li>
+            <li>Monitor error logs for anomalies and unexpected spikes</li>
+          </ul>
+        </div>
+
+        <!-- PRINCIPLE OF LEAST PRIVILEGE -->
+        <div class="practice-card reveal reveal-delay-3" id="practice-polp">
+          <span class="practice-icon">🎯</span>
+          <h3 class="practice-title">Principle of Least Privilege</h3>
+          <p class="practice-desc">
+            Every user, service, and component should have only the minimum permissions required
+            to perform its function. This limits the damage if any account or component is compromised.
+          </p>
+          <ul class="practice-points">
+            <li>Grant database users only the permissions they need (SELECT, INSERT, etc.)</li>
+            <li>Separate admin and standard user roles with different access levels</li>
+            <li>Use role-based access control (RBAC) for complex authorization</li>
+            <li>Regularly audit and remove unnecessary permissions</li>
+            <li>Avoid running services as root or with admin privileges</li>
+          </ul>
+        </div>
+
+        <!-- SECURE CODING HABITS -->
+        <div class="practice-card reveal reveal-delay-1" id="practice-habits">
+          <span class="practice-icon">💡</span>
+          <h3 class="practice-title">Secure Coding Habits</h3>
+          <p class="practice-desc">
+            Security is not a one-time task — it is a mindset. Adopting secure habits
+            throughout the development process catches issues before they reach production.
+          </p>
+          <ul class="practice-points">
+            <li>Conduct code reviews with a security focus before merging</li>
+            <li>Follow OWASP Top 10 as a baseline security checklist</li>
+            <li>Write unit tests that include security edge cases</li>
+            <li>Keep all development tools, frameworks, and libraries up to date</li>
+            <li>Participate in security training and CTF challenges to stay sharp</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- OWASP Reference -->
+    <section class="section" style="padding-top:0">
+      <div class="card reveal" style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="font-size:2.5rem;flex-shrink:0;">📖</div>
+        <div>
+          <h3 style="font-family:var(--font-heading);font-size:0.9rem;color:var(--neon-green);letter-spacing:1px;margin-bottom:0.5rem;">REFERENCE: OWASP TOP 10</h3>
+          <p style="color:var(--text-secondary);font-size:0.85rem;line-height:1.7;">
+            The OWASP (Open Web Application Security Project) Top 10 is the most widely recognized standard
+            for web application security risks. All vulnerabilities and practices in this project are aligned
+            with OWASP guidelines. It is the recommended starting point for any developer learning secure coding.
+          </p>
+        </div>
+        <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="flex-shrink:0;">Visit OWASP →</a>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">🛡️ CodeShield</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="vulnerabilities.html">Vulnerabilities</a>
+      <a href="review.html">Code Review</a>
+      <a href="best-practices.html">Best Practices</a>
+      <a href="report.html">Report</a>
+      <a href="challenge.html">Challenge</a>
+    </div>
+    <p class="footer-text">CodeShield &mdash; Secure Coding Review Project &bull; 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

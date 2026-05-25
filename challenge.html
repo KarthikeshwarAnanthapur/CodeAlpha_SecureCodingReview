@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Challenge — CodeShield</title>
+  <meta name="description" content="Test your cybersecurity knowledge with an interactive quiz on identifying common coding vulnerabilities." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🛡️</span>
+      <span>CodeShield</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="vulnerabilities.html">Vulnerabilities</a></li>
+      <li><a href="review.html">Code Review</a></li>
+      <li><a href="best-practices.html">Best Practices</a></li>
+      <li><a href="report.html">Audit Report</a></li>
+      <li><a href="challenge.html" class="active">Challenge</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <span class="section-tag">Knowledge Test</span>
+      <h1 class="page-hero-title">Security <span>Challenge</span></h1>
+      <p class="page-hero-sub">
+        Test your understanding of secure coding concepts with this beginner-friendly multiple-choice quiz.
+      </p>
+    </div>
+
+    <section class="section">
+      <div class="quiz-container">
+
+        <!-- PROGRESS -->
+        <div class="quiz-progress reveal" id="quiz-progress">
+          <div class="progress-info" id="progress-info">Question 1 of 8</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progress-bar" style="width:12.5%"></div>
+          </div>
+          <div class="progress-score" id="score-display">Score: 0</div>
+        </div>
+
+        <!-- QUIZ CARD -->
+        <div class="quiz-card reveal" id="quiz-card">
+          <div class="quiz-card-header">
+            <span class="quiz-q-num" id="q-num">Question 01</span>
+            <span class="badge badge-medium" id="q-category">General</span>
+          </div>
+          <div class="quiz-body">
+            <p class="quiz-question" id="quiz-question">Loading question...</p>
+
+            <div class="quiz-code-snippet" id="quiz-code-wrap" style="display:none;">
+              <div class="code-block" id="quiz-code-block"></div>
+            </div>
+
+            <div class="quiz-options" id="quiz-options">
+              <!-- Options injected by JS -->
+            </div>
+
+            <div class="quiz-feedback" id="quiz-feedback"></div>
+
+            <div class="quiz-actions">
+              <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="nextQuestion()">
+                Next Question →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div class="quiz-result" id="quiz-result">
+          <div class="result-score-circle">
+            <span class="result-score-num" id="result-num">0</span>
+            <span class="result-score-label">/ 8</span>
+          </div>
+          <h2 class="result-title" id="result-title">Quiz Complete!</h2>
+          <p class="result-msg" id="result-msg">Loading your result...</p>
+
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;">
+            <button class="btn btn-primary" id="restart-btn" onclick="restartQuiz()">🔄 Try Again</button>
+            <a href="vulnerabilities.html" class="btn btn-outline">Review Vulnerabilities →</a>
+          </div>
+
+          <div id="result-breakdown" style="text-align:left;"></div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">🛡️ CodeShield</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="vulnerabilities.html">Vulnerabilities</a>
+      <a href="review.html">Code Review</a>
+      <a href="best-practices.html">Best Practices</a>
+      <a href="report.html">Report</a>
+      <a href="challenge.html">Challenge</a>
+    </div>
+    <p class="footer-text">CodeShield &mdash; Secure Coding Review Project &bull; 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

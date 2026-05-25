@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit Report — CodeShield</title>
+  <meta name="description" content="Security audit report dashboard with identified vulnerabilities, severity levels, recommendations, and remediation checklist." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🛡️</span>
+      <span>CodeShield</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="vulnerabilities.html">Vulnerabilities</a></li>
+      <li><a href="review.html">Code Review</a></li>
+      <li><a href="best-practices.html">Best Practices</a></li>
+      <li><a href="report.html" class="active">Audit Report</a></li>
+      <li><a href="challenge.html">Challenge</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <span class="section-tag">Security Audit</span>
+      <h1 class="page-hero-title">Audit <span>Report</span></h1>
+      <p class="page-hero-sub">
+        Summary of identified security vulnerabilities, severity ratings, recommendations,
+        and a remediation checklist from the manual code inspection.
+      </p>
+    </div>
+
+    <section class="section">
+
+      <!-- REPORT META -->
+      <div class="card reveal" style="margin-bottom:2.5rem;padding:1.5rem 2rem;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;">
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-code);margin-bottom:0.3rem;">Report ID</div>
+            <div style="font-family:var(--font-code);color:var(--neon-green);font-size:0.88rem;">CS-AUDIT-2025-001</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-code);margin-bottom:0.3rem;">Audit Type</div>
+            <div style="color:var(--text-primary);font-size:0.88rem;">Manual Code Review</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-code);margin-bottom:0.3rem;">Language / Platform</div>
+            <div style="color:var(--text-primary);font-size:0.88rem;">JavaScript (Node.js + Browser)</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-code);margin-bottom:0.3rem;">Status</div>
+            <div style="display:flex;align-items:center;gap:0.4rem;">
+              <span class="status-dot status-review"></span>
+              <span style="color:var(--accent-yellow);font-size:0.88rem;">In Remediation</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-code);margin-bottom:0.3rem;">Date</div>
+            <div style="color:var(--text-primary);font-size:0.88rem;" id="report-date">2025-05-25</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-code);margin-bottom:0.3rem;">Auditor</div>
+            <div style="color:var(--text-primary);font-size:0.88rem;">CodeShield Team</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARY CARDS -->
+      <div class="report-summary reveal">
+        <div class="summary-card">
+          <span class="summary-number" style="color:var(--accent-red);">2</span>
+          <span class="summary-label">Critical</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-number" style="color:var(--accent-orange);">2</span>
+          <span class="summary-label">High</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-number" style="color:var(--accent-yellow);">1</span>
+          <span class="summary-label">Medium</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-number" style="color:var(--neon-green);">0</span>
+          <span class="summary-label">Low</span>
+        </div>
+        <div class="summary-card">
+          <span class="summary-number" style="color:var(--text-white);">5</span>
+          <span class="summary-label">Total Findings</span>
+        </div>
+      </div>
+
+      <!-- FINDINGS TABLE -->
+      <h2 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-white);letter-spacing:1px;margin-bottom:1rem;" class="reveal">Findings Table</h2>
+      <div class="report-table-wrap reveal">
+        <table class="report-table" id="findings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Vulnerability</th>
+              <th>Location</th>
+              <th>Severity</th>
+              <th>Status</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:var(--font-code);color:var(--text-muted);font-size:0.78rem;">001</td>
+              <td style="color:var(--text-primary);font-weight:500;">SQL Injection</td>
+              <td style="font-family:var(--font-code);font-size:0.78rem;">db/queries.js:42</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td><span class="status-dot status-open"></span> Open</td>
+              <td>Use parameterized queries</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-code);color:var(--text-muted);font-size:0.78rem;">002</td>
+              <td style="color:var(--text-primary);font-weight:500;">Hardcoded Credentials</td>
+              <td style="font-family:var(--font-code);font-size:0.78rem;">config.js:3–7</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td><span class="status-dot status-review"></span> In Review</td>
+              <td>Move to environment variables</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-code);color:var(--text-muted);font-size:0.78rem;">003</td>
+              <td style="color:var(--text-primary);font-weight:500;">Cross-Site Scripting (XSS)</td>
+              <td style="font-family:var(--font-code);font-size:0.78rem;">search.js:18</td>
+              <td><span class="badge badge-high">High</span></td>
+              <td><span class="status-dot status-review"></span> In Review</td>
+              <td>Replace innerHTML with textContent</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-code);color:var(--text-muted);font-size:0.78rem;">004</td>
+              <td style="color:var(--text-primary);font-weight:500;">Weak Password Policy</td>
+              <td style="font-family:var(--font-code);font-size:0.78rem;">auth/register.js:12</td>
+              <td><span class="badge badge-high">High</span></td>
+              <td><span class="status-dot status-fixed"></span> Fixed</td>
+              <td>Enforce 12+ char passwords + bcrypt</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-code);color:var(--text-muted);font-size:0.78rem;">005</td>
+              <td style="color:var(--text-primary);font-weight:500;">Insecure Input Validation</td>
+              <td style="font-family:var(--font-code);font-size:0.78rem;">routes/register.js:8</td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td><span class="status-dot status-fixed"></span> Fixed</td>
+              <td>Add server-side schema validation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RISK OVERVIEW -->
+      <h2 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-white);letter-spacing:1px;margin-bottom:1rem;" class="reveal">Risk Overview</h2>
+      <div class="card reveal" style="margin-bottom:2.5rem;padding:2rem;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;align-items:center;">
+          <div>
+            <div style="margin-bottom:1.2rem;">
+              <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.4rem;">
+                <span style="color:var(--accent-red);">Critical (2)</span>
+                <span style="color:var(--text-muted);">40%</span>
+              </div>
+              <div style="height:8px;background:var(--border-color);border-radius:4px;overflow:hidden;">
+                <div style="height:100%;width:40%;background:var(--accent-red);border-radius:4px;box-shadow:0 0 8px rgba(255,56,96,0.5);"></div>
+              </div>
+            </div>
+            <div style="margin-bottom:1.2rem;">
+              <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.4rem;">
+                <span style="color:var(--accent-orange);">High (2)</span>
+                <span style="color:var(--text-muted);">40%</span>
+              </div>
+              <div style="height:8px;background:var(--border-color);border-radius:4px;overflow:hidden;">
+                <div style="height:100%;width:40%;background:var(--accent-orange);border-radius:4px;box-shadow:0 0 8px rgba(255,140,66,0.5);"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.4rem;">
+                <span style="color:var(--accent-yellow);">Medium (1)</span>
+                <span style="color:var(--text-muted);">20%</span>
+              </div>
+              <div style="height:8px;background:var(--border-color);border-radius:4px;overflow:hidden;">
+                <div style="height:100%;width:20%;background:var(--accent-yellow);border-radius:4px;box-shadow:0 0 8px rgba(255,215,0,0.5);"></div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-heading);font-size:3rem;font-weight:700;color:var(--accent-orange);text-shadow:0 0 20px rgba(255,140,66,0.4);">HIGH</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:0.3rem;">Overall Risk Level</div>
+            <div style="margin-top:1rem;font-size:0.82rem;color:var(--text-secondary);line-height:1.6;">
+              2 of 5 findings have been remediated. Critical issues require immediate attention.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REMEDIATION CHECKLIST -->
+      <h2 style="font-family:var(--font-heading);font-size:1rem;color:var(--text-white);letter-spacing:1px;margin-bottom:1rem;" class="reveal">Remediation Checklist</h2>
+      <div class="checklist reveal">
+        <div class="check-item">
+          <div class="check-box">✓</div>
+          <span>Implement server-side input validation on all routes</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box">✓</div>
+          <span>Enforce strong password policy (12+ chars, bcrypt)</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box" style="border-color:var(--accent-red);background:rgba(255,56,96,0.08);color:var(--accent-red);">✗</div>
+          <span style="color:var(--text-muted);">Migrate database credentials to environment variables</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box" style="border-color:var(--accent-red);background:rgba(255,56,96,0.08);color:var(--accent-red);">✗</div>
+          <span style="color:var(--text-muted);">Replace all innerHTML with textContent or DOMPurify</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box" style="border-color:var(--accent-red);background:rgba(255,56,96,0.08);color:var(--accent-red);">✗</div>
+          <span style="color:var(--text-muted);">Switch all SQL queries to parameterized statements</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box" style="border-color:var(--accent-yellow);background:rgba(255,215,0,0.08);color:var(--accent-yellow);">⟳</div>
+          <span style="color:var(--text-muted);">Add Content Security Policy (CSP) headers</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box" style="border-color:var(--accent-yellow);background:rgba(255,215,0,0.08);color:var(--accent-yellow);">⟳</div>
+          <span style="color:var(--text-muted);">Enable Multi-Factor Authentication for admin accounts</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box">✓</div>
+          <span>Remove unused dependencies from package.json</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box" style="border-color:var(--accent-yellow);background:rgba(255,215,0,0.08);color:var(--accent-yellow);">⟳</div>
+          <span style="color:var(--text-muted);">Implement HTTPS and HSTS headers across all endpoints</span>
+        </div>
+        <div class="check-item">
+          <div class="check-box">✓</div>
+          <span>Set up centralized server-side error logging</span>
+        </div>
+      </div>
+
+      <!-- NEXT STEPS -->
+      <div class="card reveal" style="margin-top:2.5rem;border-color:rgba(0,255,65,0.2);background:var(--neon-green-faint);text-align:center;padding:2.5rem;">
+        <span style="font-size:2rem;display:block;margin-bottom:1rem;">📌</span>
+        <h3 style="font-family:var(--font-heading);font-size:0.9rem;color:var(--neon-green);letter-spacing:1px;margin-bottom:0.8rem;">NEXT STEPS</h3>
+        <p style="color:var(--text-secondary);font-size:0.88rem;line-height:1.7;max-width:580px;margin:0 auto 1.5rem;">
+          Address all Critical and High severity findings immediately. Schedule a follow-up review
+          after remediations are applied. Consider adding automated SAST scanning to the CI/CD
+          pipeline to catch future vulnerabilities before they reach production.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="review.html" class="btn btn-outline btn-sm">View Code Examples →</a>
+          <a href="best-practices.html" class="btn btn-outline btn-sm">Read Best Practices →</a>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">🛡️ CodeShield</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="vulnerabilities.html">Vulnerabilities</a>
+      <a href="review.html">Code Review</a>
+      <a href="best-practices.html">Best Practices</a>
+      <a href="report.html">Report</a>
+      <a href="challenge.html">Challenge</a>
+    </div>
+    <p class="footer-text">CodeShield &mdash; Secure Coding Review Project &bull; 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

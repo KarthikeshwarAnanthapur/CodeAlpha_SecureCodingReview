@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Review — CodeShield</title>
+  <meta name="description" content="Manually inspected code review examples showing vulnerable vs secure code for hardcoded passwords, unsafe innerHTML, and weak validation." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🛡️</span>
+      <span>CodeShield</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="vulnerabilities.html">Vulnerabilities</a></li>
+      <li><a href="review.html" class="active">Code Review</a></li>
+      <li><a href="best-practices.html">Best Practices</a></li>
+      <li><a href="report.html">Audit Report</a></li>
+      <li><a href="challenge.html">Challenge</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <span class="section-tag">Manual Inspection</span>
+      <h1 class="page-hero-title">Code <span>Review</span></h1>
+      <p class="page-hero-sub">
+        Side-by-side vulnerable vs. secure code examples with issue explanations and remediation steps.
+      </p>
+    </div>
+
+    <section class="section">
+
+      <!-- MANUAL INSPECTION NOTICE -->
+      <div class="review-intro reveal">
+        <div class="review-intro-icon">🔬</div>
+        <div>
+          <h3>Manual Code Inspection Method</h3>
+          <p>
+            This project uses <strong style="color:var(--text-primary)">manual code inspection</strong> to identify vulnerabilities —
+            carefully reading through source code line by line to spot insecure patterns, unsafe function calls,
+            missing validations, and exposed secrets without running automated tools.
+          </p>
+        </div>
+      </div>
+
+      <!-- EXAMPLE 1: HARDCODED PASSWORDS -->
+      <div class="review-item reveal" id="review-hardcoded">
+        <div class="review-item-header">
+          <div>
+            <div class="review-item-title">Example 1 — Hardcoded Credentials</div>
+            <span style="font-size:0.78rem;color:var(--text-muted);">Language: JavaScript (Node.js)</span>
+          </div>
+          <span class="badge badge-critical">Critical</span>
+        </div>
+        <div class="review-body">
+
+          <div class="code-comparison">
+            <div>
+              <p style="font-size:0.78rem;color:var(--accent-red);font-family:var(--font-code);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">⚠ Vulnerable Code</p>
+              <div class="code-block vulnerable">
+                <span class="code-label">vulnerable</span>
+<span class="cm">// config.js</span>
+<span class="kw">const</span> config <span class="op">=</span> {
+  db_host: <span class="str">'localhost'</span>,
+  db_user: <span class="str">'root'</span>,
+  db_pass: <span class="str">'admin123'</span>,  <span class="cm">// ❌</span>
+  api_key: <span class="str">'sk-abc9876xyz'</span> <span class="cm">// ❌</span>
+};
+
+module.exports <span class="op">=</span> config;
+              </div>
+            </div>
+            <div>
+              <p style="font-size:0.78rem;color:var(--neon-green);font-family:var(--font-code);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">✓ Secure Code</p>
+              <div class="code-block secure">
+                <span class="code-label">secure</span>
+<span class="cm">// config.js</span>
+<span class="kw">require</span>(<span class="str">'dotenv'</span>).config();
+
+<span class="kw">const</span> config <span class="op">=</span> {
+  db_host: process.env.<span class="var">DB_HOST</span>,
+  db_user: process.env.<span class="var">DB_USER</span>,
+  db_pass: process.env.<span class="var">DB_PASS</span>, <span class="cm">// ✅</span>
+  api_key: process.env.<span class="var">API_KEY</span>  <span class="cm">// ✅</span>
+};
+
+module.exports <span class="op">=</span> config;
+              </div>
+            </div>
+          </div>
+
+          <div class="issue-box">
+            <h4>🔍 Issue Identified</h4>
+            <p>
+              Credentials are hardcoded directly in source code. If this file is committed to a public
+              repository (e.g., GitHub), attackers immediately have access to the database and API services.
+              This was identified during manual code review of the <code style="font-family:var(--font-code);color:var(--accent-red);font-size:0.82rem;">config.js</code> file.
+            </p>
+          </div>
+
+          <div class="remediation-box">
+            <h4>🛠 Remediation Steps</h4>
+            <ul class="remediation-box ul">
+              <li>Move all credentials to a <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">.env</code> file and use the <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">dotenv</code> library to load them</li>
+              <li>Add <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">.env</code> to <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">.gitignore</code> so it is never committed</li>
+              <li>Rotate any credentials that were previously exposed immediately</li>
+              <li>Use a secrets manager (AWS Secrets Manager, Azure Key Vault) for production</li>
+              <li>Run <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">git-secrets</code> or similar tools to prevent future leaks</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXAMPLE 2: UNSAFE INNERHTML / XSS -->
+      <div class="review-item reveal" id="review-xss">
+        <div class="review-item-header">
+          <div>
+            <div class="review-item-title">Example 2 — Unsafe innerHTML (XSS)</div>
+            <span style="font-size:0.78rem;color:var(--text-muted);">Language: JavaScript (Frontend)</span>
+          </div>
+          <span class="badge badge-high">High</span>
+        </div>
+        <div class="review-body">
+
+          <div class="code-comparison">
+            <div>
+              <p style="font-size:0.78rem;color:var(--accent-red);font-family:var(--font-code);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">⚠ Vulnerable Code</p>
+              <div class="code-block vulnerable">
+                <span class="code-label">vulnerable</span>
+<span class="cm">// search.js</span>
+<span class="kw">function</span> <span class="fn">displayResult</span>(userInput) {
+  <span class="kw">const</span> div <span class="op">=</span> document
+    .<span class="fn">getElementById</span>(<span class="str">'results'</span>);
+
+  <span class="cm">// ❌ Executes embedded scripts!</span>
+  div.innerHTML <span class="op">=</span>
+    <span class="str">`You searched: <span class="op">${</span>userInput<span class="op">}</span>`</span>;
+}
+              </div>
+            </div>
+            <div>
+              <p style="font-size:0.78rem;color:var(--neon-green);font-family:var(--font-code);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">✓ Secure Code</p>
+              <div class="code-block secure">
+                <span class="code-label">secure</span>
+<span class="cm">// search.js</span>
+<span class="kw">function</span> <span class="fn">displayResult</span>(userInput) {
+  <span class="kw">const</span> div <span class="op">=</span> document
+    .<span class="fn">getElementById</span>(<span class="str">'results'</span>);
+
+  <span class="cm">// ✅ Treats input as plain text</span>
+  div.textContent <span class="op">=</span>
+    <span class="str">`You searched: <span class="op">${</span>userInput<span class="op">}</span>`</span>;
+}
+              </div>
+            </div>
+          </div>
+
+          <div class="issue-box">
+            <h4>🔍 Issue Identified</h4>
+            <p>
+              Using <code style="font-family:var(--font-code);color:var(--accent-red);font-size:0.82rem;">innerHTML</code> with untrusted user input allows attackers to inject
+              HTML and JavaScript. For example, submitting
+              <code style="font-family:var(--font-code);color:var(--accent-red);font-size:0.82rem;">&lt;img src=x onerror="alert(document.cookie)"&gt;</code>
+              would execute malicious code and steal session cookies.
+            </p>
+          </div>
+
+          <div class="remediation-box">
+            <h4>🛠 Remediation Steps</h4>
+            <ul>
+              <li>Replace <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">innerHTML</code> with <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">textContent</code> whenever inserting plain text</li>
+              <li>If HTML rendering is truly needed, use a sanitization library like <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">DOMPurify</code></li>
+              <li>Implement a Content Security Policy (CSP) header to restrict script execution</li>
+              <li>Encode all user-supplied data before rendering it in the browser</li>
+              <li>Validate and allowlist expected input formats on the server side</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EXAMPLE 3: WEAK VALIDATION -->
+      <div class="review-item reveal" id="review-validation">
+        <div class="review-item-header">
+          <div>
+            <div class="review-item-title">Example 3 — Weak Input Validation</div>
+            <span style="font-size:0.78rem;color:var(--text-muted);">Language: JavaScript (Node.js / Express)</span>
+          </div>
+          <span class="badge badge-medium">Medium</span>
+        </div>
+        <div class="review-body">
+
+          <div class="code-comparison">
+            <div>
+              <p style="font-size:0.78rem;color:var(--accent-red);font-family:var(--font-code);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">⚠ Vulnerable Code</p>
+              <div class="code-block vulnerable">
+                <span class="code-label">vulnerable</span>
+<span class="cm">// register.js (Express route)</span>
+app.<span class="fn">post</span>(<span class="str">'/register'</span>, (req, res) <span class="op">=></span> {
+  <span class="kw">const</span> { email, age, pass } <span class="op">=</span> req.body;
+
+  <span class="cm">// ❌ No validation at all</span>
+  db.<span class="fn">createUser</span>({ email, age, pass });
+  res.<span class="fn">send</span>(<span class="str">'User created'</span>);
+});
+              </div>
+            </div>
+            <div>
+              <p style="font-size:0.78rem;color:var(--neon-green);font-family:var(--font-code);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;">✓ Secure Code</p>
+              <div class="code-block secure">
+                <span class="code-label">secure</span>
+<span class="cm">// register.js (Express route)</span>
+<span class="kw">const</span> emailRegex <span class="op">=</span> <span class="str">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span>;
+
+app.<span class="fn">post</span>(<span class="str">'/register'</span>, (req, res) <span class="op">=></span> {
+  <span class="kw">const</span> { email, age, pass } <span class="op">=</span> req.body;
+
+  <span class="kw">if</span> (<span class="op">!</span>emailRegex.<span class="fn">test</span>(email))
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">400</span>).<span class="fn">send</span>(<span class="str">'Bad email'</span>);
+
+  <span class="kw">if</span> (<span class="op">!</span>Number.isInteger(age) <span class="op">||</span> age <span class="op">&lt;</span> <span class="num">0</span>)
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">400</span>).<span class="fn">send</span>(<span class="str">'Bad age'</span>);
+
+  <span class="kw">if</span> (pass.length <span class="op">&lt;</span> <span class="num">12</span>)
+    <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">400</span>).<span class="fn">send</span>(<span class="str">'Weak pass'</span>);
+
+  db.<span class="fn">createUser</span>({ email, age, pass }); <span class="cm">// ✅</span>
+  res.<span class="fn">send</span>(<span class="str">'User created'</span>);
+});
+              </div>
+            </div>
+          </div>
+
+          <div class="issue-box">
+            <h4>🔍 Issue Identified</h4>
+            <p>
+              The registration endpoint accepts and stores user data with absolutely no validation.
+              This allows attackers to submit invalid emails, negative ages, empty passwords, or
+              arbitrarily long strings that could crash the database or be used for injection attacks.
+            </p>
+          </div>
+
+          <div class="remediation-box">
+            <h4>🛠 Remediation Steps</h4>
+            <ul>
+              <li>Always validate all user input on the server side — never trust client-side validation alone</li>
+              <li>Use schema validation libraries like <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">Joi</code>, <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">Zod</code>, or <code style="font-family:var(--font-code);font-size:0.8rem;color:var(--neon-green)">express-validator</code></li>
+              <li>Enforce minimum password length (12+ characters) with complexity requirements</li>
+              <li>Reject unexpected data types and out-of-range values with clear error messages</li>
+              <li>Return generic error messages to users; log detailed errors server-side only</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">🛡️ CodeShield</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="vulnerabilities.html">Vulnerabilities</a>
+      <a href="review.html">Code Review</a>
+      <a href="best-practices.html">Best Practices</a>
+      <a href="report.html">Report</a>
+      <a href="challenge.html">Challenge</a>
+    </div>
+    <p class="footer-text">CodeShield &mdash; Secure Coding Review Project &bull; 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
