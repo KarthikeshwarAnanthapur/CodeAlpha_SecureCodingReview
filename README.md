@@ -171,12 +171,7 @@ Open with Live Server
 
 ## 🌐 Live Demo
 
-Add your Vercel deployment link here.
-
-Example:
-```txt
 https://codeshield-review.vercel.app/dashboard
-```
 
 ---
 
