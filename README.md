@@ -1,197 +1,202 @@
 # 🛡️ CodeShield — Secure Coding Review Project
 
-> A beginner-friendly cybersecurity project exploring common coding vulnerabilities, manual code inspection methods, secure coding best practices, and remediation techniques.
+A beginner-friendly cybersecurity project focused on secure coding practices, vulnerability analysis, and manual code review techniques.
+
+CodeShield was developed as part of a Cyber Security Internship Task to demonstrate how common coding vulnerabilities can be identified, reviewed, and fixed using secure development practices.
 
 ---
 
 ## 📋 Project Overview
 
-**CodeShield** is a static web application built as an internship project for a **Secure Coding Review** task. It demonstrates:
+CodeShield is a multi-page static web application built using HTML, CSS, and JavaScript.
 
-- ✅ Selection of a programming language/application to audit (JavaScript / Node.js)
-- ✅ Identification of security vulnerabilities through manual code inspection
-- ✅ Use of manual inspection methods to review source code
-- ✅ Recommendations and best practices for secure development
-- ✅ Step-by-step remediation guidance for each vulnerability
+The project demonstrates:
+
+- Identification of common security vulnerabilities
+- Manual secure code inspection methods
+- Vulnerable vs secure code comparisons
+- Secure coding best practices
+- Remediation steps and recommendations
+- Interactive cybersecurity awareness quiz
+
+The goal of the project is to help beginners understand how insecure coding practices can lead to security risks and how developers can write safer applications.
 
 ---
 
 ## 🚀 Tech Stack
 
-| Layer     | Technology                            |
-|-----------|---------------------------------------|
-| Structure | HTML5 (semantic markup)               |
-| Styling   | Vanilla CSS (custom design system)    |
-| Logic     | Vanilla JavaScript (ES6+)             |
-| Fonts     | Google Fonts — Orbitron, Poppins, JetBrains Mono |
-| Icons     | SVG (custom shield icon)              |
-| Backend   | None — fully static                   |
+- HTML5
+- CSS3
+- JavaScript
 
 ---
 
 ## 📁 Project Structure
 
-```
+```txt
 CodeShield/
 │
-├── index.html           ← Home page with hero, stats, overview
-├── vulnerabilities.html ← 5 vulnerability cards with severity levels
-├── review.html          ← Code review: vulnerable vs secure examples
-├── best-practices.html  ← 10 secure coding best practice cards
-├── report.html          ← Audit dashboard with findings table & checklist
-├── challenge.html       ← 8-question interactive JavaScript quiz
+├── dashboard/
+│   └── index.html
 │
-├── style.css            ← Complete design system & all page styles
-├── script.js            ← Matrix bg, navbar, quiz engine, animations
+├── vulnerabilities/
+│   └── index.html
+│
+├── review/
+│   └── index.html
+│
+├── best-practices/
+│   └── index.html
+│
+├── report/
+│   └── index.html
+│
+├── challenge/
+│   └── index.html
 │
 ├── assets/
-│   └── icons/
-│       └── shield.svg   ← Custom neon shield favicon
+│   ├── icons/
+│   ├── images/
+│   └── backgrounds/
 │
-└── README.md            ← This file
+├── style.css
+├── script.js
+└── README.md
 ```
 
 ---
 
-## 🌐 Pages
+## 🌐 Website Pages
 
-### 1. Home (`index.html`)
-- Animated hero section with **CodeShield** branding
-- Live-animated stat counters (vulnerabilities, examples, practices, quiz questions)
-- Matrix rain canvas background
-- Project overview feature cards
-- Glowing neon green typography
+### 🏠 Dashboard
+- Hero section
+- Cybersecurity project overview
+- Animated stats
+- Navigation to all sections
 
-### 2. Vulnerabilities (`vulnerabilities.html`)
-Five security vulnerabilities with severity badges, code snippets, and prevention tips:
+### ⚠️ Vulnerabilities
+Covers common security vulnerabilities such as:
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Weak Passwords
+- Hardcoded Credentials
+- Insecure Input Validation
 
-| # | Vulnerability              | Severity |
-|---|---------------------------|----------|
-| 1 | SQL Injection              | 🔴 Critical |
-| 2 | Cross-Site Scripting (XSS) | 🟠 High |
-| 3 | Weak Passwords             | 🟠 High |
-| 4 | Hardcoded Credentials      | 🔴 Critical |
-| 5 | Insecure Input Validation  | 🟡 Medium |
+Each vulnerability includes:
+- Explanation
+- Severity level
+- Prevention tips
 
-### 3. Code Review (`review.html`)
-Manual code inspection examples with side-by-side comparisons:
-- **Example 1** — Hardcoded Credentials (`config.js`)
-- **Example 2** — Unsafe `innerHTML` / XSS (`search.js`)
-- **Example 3** — Weak Input Validation (`register.js`)
+### 🔍 Secure Code Review
+Demonstrates:
+- Vulnerable code examples
+- Security risks
+- Secure coding fixes
+- Remediation steps
 
-Each example includes: vulnerable code → issue explanation → secure version → remediation steps.
+Examples include:
+- Unsafe `innerHTML`
+- Hardcoded passwords
+- Weak validation logic
 
-### 4. Best Practices (`best-practices.html`)
-10 secure coding practice cards:
-Strong Passwords · MFA · Input Sanitization · Secure Authentication · Secrets Management · Dependency Security · HTTPS & TLS · Error Handling · Least Privilege · Secure Habits
+### 🛡️ Best Practices
+Explains secure coding concepts like:
+- Strong passwords
+- MFA
+- Input sanitization
+- Secure authentication
+- Safe coding habits
 
-### 5. Audit Report (`report.html`)
-- Report metadata (ID, date, audit type, auditor)
-- Summary cards (Critical / High / Medium / Low counts)
-- Findings table with location, severity, and status indicators
-- Risk level bar chart visualization
-- Remediation checklist with status icons (✓ Fixed / ⟳ In Review / ✗ Open)
+### 📊 Audit Report
+A simple cybersecurity audit dashboard showing:
+- Identified vulnerabilities
+- Severity indicators
+- Recommendations
+- Remediation checklist
 
-### 6. Challenge (`challenge.html`)
-8-question multiple-choice quiz covering:
-- SQL Injection identification
-- XSS via `innerHTML`
-- Hardcoded credentials risk
-- Password hashing best practices
-- Client vs server-side validation
-- Principle of Least Privilege
-- MFA security levels
-- Content Security Policy headers
-
-Features: progress bar · score tracking · per-question feedback · result breakdown · restart option
-
----
-
-## 🎨 Design System
-
-| Token              | Value                          |
-|--------------------|-------------------------------|
-| Background         | `#0a0a0f` (near black)        |
-| Card background    | `#12121f`                     |
-| Neon accent        | `#00ff41` (matrix green)      |
-| Text primary       | `#e0e0e0`                     |
-| Text secondary     | `#9898b2`                     |
-| Critical red       | `#ff3860`                     |
-| High orange        | `#ff8c42`                     |
-| Medium yellow      | `#ffd700`                     |
-| Heading font       | Orbitron                      |
-| Body font          | Poppins                       |
-| Code font          | JetBrains Mono                |
-
-### Visual Features
-- 🌧️ Matrix rain canvas background (opacity: 4%)
-- ✨ Neon green glow effects on headings and accents
-- 🔄 Scroll-triggered reveal animations
-- 📊 Animated stat counters
-- 🃏 Card hover lift + top border glow effect
-- 📱 Fully responsive (mobile navbar hamburger menu)
-- 🔍 Scanline animation effect across the page
+### 🎯 Challenge Quiz
+Interactive JavaScript quiz featuring:
+- Multiple-choice questions
+- Vulnerability identification
+- Score tracking
+- Final results display
 
 ---
 
-## ▶️ How to Run
+## 🎨 Design Features
 
-Since this is a fully static project, no build step or server is required.
+- Dark cybersecurity theme
+- Neon green glow effects
+- Responsive layout
+- Smooth hover animations
+- Beginner-friendly UI
+- Cyber-inspired design
 
-### Option A — Open directly in browser
-```bash
-# Simply double-click index.html, or:
-start index.html        # Windows
-open index.html         # macOS
-xdg-open index.html     # Linux
+---
+
+## 🔒 Security Concepts Covered
+
+This project demonstrates awareness of:
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Weak Authentication
+- Input Validation
+- Secure Coding Practices
+- Vulnerability Remediation
+
+The vulnerabilities were reviewed using manual code inspection methods.
+
+---
+
+## ▶️ How to Run the Project
+
+### Option 1 — Open Directly
+Simply open:
+
+```txt
+dashboard/index.html
 ```
 
-### Option B — Local dev server (recommended for best experience)
-```bash
-# Using VS Code Live Server extension (recommended)
-# Right-click index.html → "Open with Live Server"
+in your browser.
 
-# Or using Python
-python -m http.server 8080
-# Then visit: http://localhost:8080
-
-# Or using Node.js
-npx serve .
-# Then visit: http://localhost:3000
+### Option 2 — Use VS Code Live Server
+1. Install the Live Server extension
+2. Right-click `dashboard/index.html`
+3. Click:
+```txt
+Open with Live Server
 ```
 
 ---
 
-## 🔒 Vulnerabilities Audited
+## 🌐 Live Demo
 
-Based on **OWASP Top 10** standards. All identified through **manual code inspection**.
+Add your Vercel deployment link here.
 
-| OWASP ID | Vulnerability              | Method Used          |
-|----------|---------------------------|----------------------|
-| A02      | Cryptographic Failures     | Manual inspection    |
-| A03      | Injection (SQL/XSS)        | Manual code review   |
-| A07      | Identification & AuthN     | Manual inspection    |
-
----
-
-## 📚 References
-
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/) — Web application security standard
-- [OWASP Secure Coding Practices](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/)
-- [MDN Web Security](https://developer.mozilla.org/en-US/docs/Web/Security)
-- [NIST Password Guidelines](https://pages.nist.gov/800-63-3/)
+Example:
+```txt
+https://codeshield-review.vercel.app/dashboard
+```
 
 ---
 
-## 👤 Author
+## 📂 GitHub Repository
 
-**CodeShield Team**
-Secure Coding Review Project — Internship Task 3
-Built with HTML · CSS · JavaScript
+Add your GitHub repository link here.
+
+---
+
+## 👨‍💻 Author
+
+Developed by Karthikeshwar Ananthapur
+
+Cyber Security Internship — Task 3  
+Built using HTML, CSS, and JavaScript.
 
 ---
 
 ## 📄 License
 
-This project is created for educational and internship portfolio purposes.
-Feel free to use it as a reference for learning secure coding concepts.
+This project was created for educational and internship purposes.
+
+Feel free to use it as a learning reference for cybersecurity awareness and secure coding concepts.
