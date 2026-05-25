@@ -177,7 +177,7 @@ https://codeshield-review.vercel.app/dashboard
 
 ## 📂 GitHub Repository
 
-Add your GitHub repository link here.
+https://github.com/KarthikeshwarAnanthapur/CodeAlpha_SecureCodingReview
 
 ---
 
