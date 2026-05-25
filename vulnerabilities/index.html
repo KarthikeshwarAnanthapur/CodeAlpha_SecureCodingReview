@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vulnerabilities — CodeShield</title>
   <meta name="description" content="Explore common web application vulnerabilities including SQL Injection, XSS, weak passwords, hardcoded credentials, and insecure input validation." />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/svg+xml" href="assets/icons/shield.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/shield.svg" />
 </head>
 <body>
   <canvas id="matrix-canvas"></canvas>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
-    <a href="index.html" class="nav-brand">
+    <a href="/dashboard/" class="nav-brand">
       <span class="brand-icon">🛡️</span>
       <span>CodeShield</span>
     </a>
     <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="vulnerabilities.html" class="active">Vulnerabilities</a></li>
-      <li><a href="review.html">Code Review</a></li>
-      <li><a href="best-practices.html">Best Practices</a></li>
-      <li><a href="report.html">Audit Report</a></li>
-      <li><a href="challenge.html">Challenge</a></li>
+      <li><a href="/dashboard/">Home</a></li>
+      <li><a href="/vulnerabilities/" class="active">Vulnerabilities</a></li>
+      <li><a href="/review/">Code Review</a></li>
+      <li><a href="/best-practices/">Best Practices</a></li>
+      <li><a href="/report/">Audit Report</a></li>
+      <li><a href="/challenge/">Challenge</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
@@ -210,8 +210,8 @@
             See vulnerable vs. secure code examples with step-by-step remediation.
           </p>
           <div style="display:flex;flex-direction:column;gap:0.7rem;width:100%;">
-            <a href="review.html" class="btn btn-primary btn-sm" id="btn-code-review">View Code Review →</a>
-            <a href="challenge.html" class="btn btn-outline btn-sm" id="btn-quiz">Take the Quiz</a>
+            <a href="/review/" class="btn btn-primary btn-sm" id="btn-code-review">View Code Review →</a>
+            <a href="/challenge/" class="btn btn-outline btn-sm" id="btn-quiz">Take the Quiz</a>
           </div>
         </div>
 
@@ -222,16 +222,16 @@
   <footer class="footer">
     <div class="footer-brand">🛡️ CodeShield</div>
     <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="vulnerabilities.html">Vulnerabilities</a>
-      <a href="review.html">Code Review</a>
-      <a href="best-practices.html">Best Practices</a>
-      <a href="report.html">Report</a>
-      <a href="challenge.html">Challenge</a>
+      <a href="/dashboard/">Home</a>
+      <a href="/vulnerabilities/">Vulnerabilities</a>
+      <a href="/review/">Code Review</a>
+      <a href="/best-practices/">Best Practices</a>
+      <a href="/report/">Report</a>
+      <a href="/challenge/">Challenge</a>
     </div>
     <p class="footer-text">CodeShield &mdash; Secure Coding Review Project &bull; 2025</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
 </body>
 </html>
